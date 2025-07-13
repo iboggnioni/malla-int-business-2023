@@ -1,80 +1,85 @@
-/* Estilo general de la página */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f7fa;
+  font-family: 'Nunito', sans-serif;
+  background: #f0f4f8;
+  padding: 20px;
   margin: 0;
-  padding: 30px;
   color: #333;
 }
 
 h1 {
+  font-family: 'Pacifico', cursive;
   text-align: center;
+  font-size: 36px;
   color: #1a237e;
-  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+p {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 30px;
 }
 
 #malla-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 20px;
-  margin-top: 40px;
+  padding-bottom: 20px;
 }
 
-/* Estilo de cada curso */
+/* Cada columna es un semestre */
+.semestre-column {
+  min-width: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+.semestre-title {
+  font-family: 'Pacifico', cursive;
+  font-size: 22px;
+  color: #0d47a1;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 6px;
+}
+
 .course {
-  background-color: #ffffff;
-  border-left: 6px solid #90a4ae;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 15px;
-  transition: all 0.3s ease-in-out;
-  position: relative;
+  background: #f8f9fa;
+  border-left: 5px solid #90a4ae;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  transition: all 0.3s;
 }
 
-.course:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* Cursos aprobados */
 .course.approved {
+  background-color: #d0f0c0;
   border-left-color: #4caf50;
-  background-color: #e8f5e9;
 }
 
-/* Cursos desbloqueados (prerrequisitos cumplidos) pero no aprobados */
-.course input[type="checkbox"]:not(:disabled):not(:checked) ~ label,
-.course input[type="checkbox"]:not(:disabled):not(:checked) {
-  cursor: pointer;
+.course input[type="checkbox"]:disabled {
+  accent-color: #cfd8dc;
 }
 
 .course input[type="checkbox"]:not(:disabled) {
   accent-color: #4caf50;
 }
 
-/* Cursos bloqueados (prerrequisitos no cumplidos) */
-.course input[type="checkbox"]:disabled {
-  accent-color: #b0bec5;
-}
-
-.course input[type="checkbox"]:disabled + label {
-  color: #999;
-  cursor: not-allowed;
-}
-
-/* Texto */
 .course strong {
-  font-size: 16px;
-  color: #0d47a1;
+  font-size: 15px;
+  color: #1e293b;
 }
 
 .course small {
   font-size: 12px;
-  color: #616161;
-  display: block;
-  margin-bottom: 8px;
-}
-
-label {
-  font-size: 14px;
+  color: #607d8b;
 }

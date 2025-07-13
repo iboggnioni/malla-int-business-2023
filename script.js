@@ -1,17 +1,14 @@
 const cursos = [
   { nombre: "Cálculo I", semestre: 1, aprobado: false, prerequisitos: [], creditos: 5, tipo: 'matematicas' },
-  { nombre: "Cálculo II", semestre: 2, aprobado: false, prerequisitos: ["Cálculo I"], creditos: 5, tipo: 'matematicas' },
-  { nombre: "Estadísticas I", semestre: 3, aprobado: false, prerequisitos: ["Cálculo II"], creditos: 5, tipo: 'matematicas' },
-  { nombre: "Estadísticas II", semestre: 5, aprobado: false, prerequisitos: ["Estadísticas I"], creditos: 5, tipo: 'matematicas' },
+  { nombre: "Álgebra Lineal", semestre: 1, aprobado: false, prerequisitos: [], creditos: 5, tipo: 'matematicas' },
   { nombre: "Principles of Economics", semestre: 1, aprobado: false, prerequisitos: [], creditos: 5, tipo: 'economia' },
+  { nombre: "Cálculo II", semestre: 2, aprobado: false, prerequisitos: ["Cálculo I"], creditos: 5, tipo: 'matematicas' },
   { nombre: "Principles of Microeconomics", semestre: 2, aprobado: false, prerequisitos: ["Principles of Economics"], creditos: 5, tipo: 'economia' },
-  { nombre: "Microeconomics I", semestre: 3, aprobado: false, prerequisitos: ["Principles of Microeconomics"], creditos: 5, tipo: 'economia' },
-  { nombre: "Macroeconomics I", semestre: 4, aprobado: false, prerequisitos: ["Microeconomics I"], creditos: 5, tipo: 'economia' },
-  { nombre: "Macroeconomics II", semestre: 5, aprobado: false, prerequisitos: ["Macroeconomics I"], creditos: 5, tipo: 'economia' },
-  { nombre: "International Trade", semestre: 6, aprobado: false, prerequisitos: ["Macroeconomics II"], creditos: 5, tipo: 'internacional' },
+  { nombre: "International Trade", semestre: 3, aprobado: false, prerequisitos: ["Principles of Microeconomics"], creditos: 5, tipo: 'internacional' }
 ];
 
 const container = document.getElementById('malla-container');
+
 function renderMalla() {
   container.innerHTML = '';
   const porSemestre = {};

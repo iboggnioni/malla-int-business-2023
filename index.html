@@ -4,13 +4,137 @@
   <meta charset="UTF-8">
   <title>Malla Interactiva - International Business</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f5f8fa;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+      font-size: 36px;
+      color: #1a237e;
+    }
+
+    #malla-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 30px 0;
+    }
+
+    .semestre {
+      min-width: 240px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .semestre h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 22px;
+      text-align: center;
+      color: #0d47a1;
+      margin-top: 0;
+    }
+
+    .curso {
+      background-color: #fafafa;
+      border-left: 5px solid #b0bec5;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      transition: all 0.2s ease-in-out;
+      position: relative;
+    }
+
+    .curso.aprobado {
+      background-color: #dcedc8;
+      border-left-color: #4caf50;
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .curso input[type="checkbox"]:disabled {
+      accent-color: #cfd8dc;
+    }
+
+    .curso input[type="checkbox"]:not(:disabled) {
+      accent-color: #4caf50;
+    }
+
+    .curso small {
+      font-size: 11px;
+      color: #607d8b;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bachelor of Science in International Business</h1>
-  <p style="text-align:center">Malla 2024 - UANDES</p>
-
+  <h1>Malla Interactiva - International Business</h1>
   <div id="malla-container"></div>
+  <script>
+    const cursos = [
+      { nombre: "Cálculo I", semestre: 1, aprobado: false, prerequisitos: [] },
+      { nombre: "Cálculo II", semestre: 2, aprobado: false, prerequisitos: ["Cálculo I"] },
+      { nombre: "Estadísticas I", semestre: 3, aprobado: false, prerequisitos: ["Cálculo II"] },
+      { nombre: "Estadísticas II", semestre: 5, aprobado: false, prerequisitos: ["Estadísticas I"] },
+      // ... agrega los demás cursos reales aquí
+    ];
 
-  <script src="script.js"></script>
+    const container = document.getElementById('malla-container');
+
+    function renderMalla() {
+      container.innerHTML = '';
+      const porSemestre = {};
+      cursos.forEach(curso => {
+        if (!porSemestre[curso.semestre]) porSemestre[curso.semestre] = [];
+        porSemestre[curso.semestre].push(curso);
+      });
+
+      Object.keys(porSemestre).sort().forEach(sem => {
+        const col = document.createElement('div');
+        col.className = 'semestre';
+        col.innerHTML = `<h2>Semestre ${sem}</h2>`;
+
+        porSemestre[sem].forEach((curso, i) => {
+          const prereqsOk = curso.prerequisitos.every(pr => {
+            const prCurso = cursos.find(c => c.nombre === pr);
+            return prCurso && prCurso.aprobado;
+          });
+
+          const div = document.createElement('div');
+          div.className = `curso ${curso.aprobado ? 'aprobado' : ''}`;
+          div.innerHTML = `
+            <strong>${curso.nombre}</strong><br>
+            <small>${curso.prerequisitos.length ? 'Prerreq: ' + curso.prerequisitos.join(', ') : ''}</small><br>
+            <label>
+              <input type="checkbox" ${curso.aprobado ? 'checked' : ''} ${!prereqsOk ? 'disabled' : ''} 
+              onchange="toggleAprobado(${cursos.indexOf(curso)})">
+              Aprobado
+            </label>
+          `;
+          col.appendChild(div);
+        });
+        container.appendChild(col);
+      });
+    }
+
+    function toggleAprobado(index) {
+      cursos[index].aprobado = !cursos[index].aprobado;
+      renderMalla();
+    }
+
+    renderMalla();
+  </script>
 </body>
 </html>
